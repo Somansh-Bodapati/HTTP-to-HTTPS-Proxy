@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "unistd.h"
+
 
 #define BUFFER_SIZE 4096
 
@@ -15,7 +17,7 @@ HttpRequest parse_http_request(int sockfd) {
     memset(&req, 0, sizeof(HttpRequest));
 
     // Read the start line
-    if (fread(sockfd, buffer, BUFFER_SIZE - 1) <= 0) {
+    if (read(sockfd, buffer, BUFFER_SIZE - 1) <= 0) {
         perror("Failed to read request");
         return req;
     }
