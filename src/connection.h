@@ -1,7 +1,7 @@
 #ifndef HTTP_TO_HTTPS_PROXY_CONNECTION_H
 #define HTTP_TO_HTTPS_PROXY_CONNECTION_H
 
-
+#include "parsing.h"
 #include "proxy.h"
 
 
