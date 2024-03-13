@@ -60,7 +60,7 @@ void *handle_client(void *newsockfd) {
     // Handle the client request here
     printf("Handling request\n");
     HttpRequest req = parse_http_request(sockfd);
-    printf("Received Request: %s %s %s\n", req.method, req.uri, req.version);
+    printf("Received Request: %s %s %s\n", req.method, req.uri, req.httpVersion);
 
     close(sockfd);  // Close the client socket
     return NULL;    // Return from the thread
