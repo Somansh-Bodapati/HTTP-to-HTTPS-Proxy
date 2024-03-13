@@ -1,0 +1,24 @@
+            - name: CodeScan Scanner
+  # You may pin to the exact commit or the version.
+  # uses: codescan-io/codescan-scanner-action@34bb1239ae63550b540bb82f8f5de370ecb34d99
+  uses: codescan-io/codescan-scanner-action@1.4
+  with:
+    # CodeScan Organization Key
+    organization: 
+    # CodeScan Project Key
+    projectKey: 
+    # CodeScan Login Key
+    login: 
+    # CodeScanCloud endpoint for your project
+    codeScanUrl: # optional, default is https://app.codescan.io/
+    # This task will poll CodeScanCloud until the analysis is completed, or until the timeout is reached
+    pollingTimeoutSec: # optional, default is 900
+    # The flag to indicate that SARIF file should be generated on server side
+    generateSarifFile: # optional, default is false
+    # The flag to indicate that SARIF file should be generated on client side
+    generateReportFile: # optional, default is true
+    # The flag to indicate that pipeline will fail in case of quality gate status failed
+    failOnRedQualityGate: # optional, default is false
+    # Additional arguments to the sonarcloud scanner
+    args: # optional
+          
