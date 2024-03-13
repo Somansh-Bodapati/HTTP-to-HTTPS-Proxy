@@ -32,7 +32,7 @@ void extract_host_port(const char *uri, HttpRequest *req) {
             if (port_or_path) {
                 strncpy(req->host, host_start, port_or_path - host_start);  // Copy host part
             } else {
-                strcpy(req->host, host_start);  // Entire remaining part is the host
+                strncpy(req->host, host_start);  // Entire remaining part is the host
             }
         }
     }
