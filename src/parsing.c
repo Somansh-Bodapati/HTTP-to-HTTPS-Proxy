@@ -25,6 +25,7 @@ void extract_host_port(const char *uri, HttpRequest *req) {
         if (port_or_path) {
             // Port is specified
             strncpy(req->host, host_start, port_or_path - host_start);  // Copy host part
+            req->host[port_or_path - host_start] = '\0';
             req->port = atoi(port_or_path + 1);  // Convert port number to integer
         } else {
             // No port specified, look for the start of the path
@@ -54,7 +55,7 @@ HttpRequest parse_http_request(int sockfd) {
     buffer[bytes_read] = '\0';  // Null-terminate the buffer
 
     // Parse the start line
-    sscanf(buffer, "%s %s %s", req.method, req.uri, req.httpVersion);
+    sscanf(buffer, "%7s %2047s %15s", req.method, req.uri, req.httpVersion);
 
     // Further parsing can be done here to extract headers
 
