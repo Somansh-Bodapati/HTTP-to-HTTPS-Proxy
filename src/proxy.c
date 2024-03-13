@@ -1,4 +1,12 @@
 #include "proxy.h"
+#include "stdio.h"
+#include "stdlib.h"
+
+// Error message and exit
+void error(const char *msg) {
+    perror(msg);
+    exit(1);
+}
 
 int main(int argc, char *argv[]) {
     if (argc != 4) {
@@ -17,5 +25,9 @@ int main(int argc, char *argv[]) {
     if (port < 1 || port > 65535) {
         printf("Invalid Port\n");
     }
+
+
+    int sockfd = create_listening_socket(port);
+    accept_connections(sockfd);
     return 0;
 }
