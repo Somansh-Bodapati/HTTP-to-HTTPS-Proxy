@@ -54,7 +54,7 @@ HttpRequest parse_http_request(int sockfd) {
     buffer[bytes_read] = '\0';  // Null-terminate the buffer
 
     // Parse the start line
-    sscanf(buffer, "%s %s %s", req.method, req.uri, req.httpVersion);
+    sscanf(buffer, "%7s %2047s %15s", req.method, req.uri, req.httpVersion);
 
     // Further parsing can be done here to extract headers
 
