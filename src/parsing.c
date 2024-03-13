@@ -3,6 +3,7 @@
 #include "parsing.h"
 #include <stdlib.h>
 #include <string.h>
+#include "stdio.h"
 #include <unistd.h>
 #include <sys/socket.h>
 
@@ -59,7 +60,7 @@ HttpRequest parse_http_request(int sockfd) {
 
     // Extract host and port from URI
     extract_host_port(req.uri, &req);
-    //printf("%s %s %s %s %d", req.method, req.uri, req.httpVersion, req.host, req.port)
 
     return req;
 }
+
