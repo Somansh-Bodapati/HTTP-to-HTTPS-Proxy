@@ -8,6 +8,7 @@
 #include "err.h"
 #include "unistd.h"
 
+
 int create_listening_socket(int port) {
     int sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd < 0) {
@@ -52,6 +53,7 @@ void accept_connections(int listen_sockfd) {
         pthread_detach(thread_id);  // The thread resources are automatically released on termination
     }
 }
+
 
 void *handle_client(void *newsockfd) {
     int sockfd = *(int*)newsockfd;

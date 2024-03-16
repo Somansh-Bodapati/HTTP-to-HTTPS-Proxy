@@ -4,6 +4,7 @@
 
 #include "proxy.h"
 #include "connection.h"
+#include "encryption.h"
 
 
 // Define a structure to hold the parsed components of the HTTP request
@@ -18,6 +19,10 @@ typedef struct {
 // Function prototype to parse the HTTP request
 HttpRequest parse_http_request(int sockfd);
 
+void initHttpRequest(HttpRequest *req);
 
+void extract_host_port(const char *uri, HttpRequest *req);
+
+void adjust_request_for_https(const char *http_request, char *https_request, const HttpRequest *req);
 
 #endif //HTTP_TO_HTTPS_PROXY_PARSING_H

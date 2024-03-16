@@ -3,6 +3,7 @@
 
 #include "connection.h"
 #include "parsing.h"
+#include "encryption.h"
 
 void error(const char *msg);
 

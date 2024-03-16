@@ -3,7 +3,7 @@
 
 #include "parsing.h"
 #include "proxy.h"
-
+#include "encryption.h"
 
 int create_listening_socket(int port);
 
