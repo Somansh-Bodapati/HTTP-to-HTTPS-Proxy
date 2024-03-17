@@ -4,12 +4,29 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/socket.h>
+#include "stdbool.h"
 
 #define BUFFER_SIZE 4096
 
 void initHttpRequest(HttpRequest *req) {
     memset(req, 0, sizeof(HttpRequest));
     req->port = 443; // Default HTTPS port
+}
+
+void send_http_error_response(int sockfd, int status_code, const char* status_message) {
+    char response[1024];
+    snprintf(response, sizeof(response),
+             "HTTP/1.1 %d %s\r\n"
+             "Content-Type: text/html\r\n"
+             "Connection: close\r\n"
+             "\r\n"
+             "<html><head><title>%d %s</title></head>"
+             "<body><h1>%d %s</h1></body></html>\r\n",
+             status_code, status_message,
+             status_code, status_message,
+             status_code, status_message);
+
+    write(sockfd, response, strlen(response));
 }
 
 void extract_host_port(const char *uri, HttpRequest *req) {
@@ -87,27 +104,18 @@ void adjust_request_for_https(const char *http_request, char *https_request, con
 // In your perform_https_request function, make sure you're properly handling the SSL connection and response forwarding.
 
 
-HttpRequest parse_http_request(int sockfd) {
+HttpRequest parse_http_request(char *buffer) {
     HttpRequest req;
     initHttpRequest(&req);
-
-    char buffer[BUFFER_SIZE] = {0};
-    ssize_t bytes_read = recv(sockfd, buffer, sizeof(buffer) - 1, 0);
-    if (bytes_read <= 0) {
-        perror("recv failed or connection closed");
-        return req;
-    }
 
     printf("Original Request: %s\n", buffer);
 
     sscanf(buffer, "%7s %2047s %15s", req.method, req.uri, req.httpVersion);
+
+    // If there are errors in the request (you'll need additional checks here)
+    // send_http_error_response(sockfd, 400, "Bad Request");
+
     extract_host_port(req.uri, &req);
-
-    char https_request[BUFFER_SIZE] = {0};
-    adjust_request_for_https(buffer, https_request, &req);
-    printf("Adjusted HTTPS Request: %s\n", https_request);
-
-    perform_https_request(req.host, req.port, https_request, sockfd);
 
     return req;
 }
