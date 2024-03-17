@@ -1,0 +1,19 @@
+## Test Cases
+1. curl -v -x http://localhost:9090 http://www.google.com
+2. curl -v -x http://localhost:9090 http://www.google.com:9000
+3. curl -I -x http://localhost:9090 http://www.google.com
+4. curl -v -x http://localhost:9090 http://www.youtube.com
+5. curl -v -x http://localhost:9090 https://www.youtube.com
+
+## Files
+
+-->SRC
+  -encyption.c/encryption.h - Handles SSL encoding and decoding and transfer
+  -parsing.c/parsing.h - Handles parsing
+  -connection.c/connection.h - Handles connections to the server and client
+  -proxy.c/proxy.h - Handles proxy connections, threads, and invokes client function
+-->DOC
+  -README.pdf - This file with description
+-->Makefile - Makes and cleans executables
+-->README.md - Credentials and introduction
+
