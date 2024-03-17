@@ -8,6 +8,7 @@
 #include "err.h"
 #include "unistd.h"
 
+
 int create_listening_socket(int port) {
     int sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd < 0) {
@@ -53,16 +54,4 @@ void accept_connections(int listen_sockfd) {
     }
 }
 
-void *handle_client(void *newsockfd) {
-    int sockfd = *(int*)newsockfd;
-    free(newsockfd);  // Don't forget to free the dynamically allocated memory
-
-    // Handle the client request here
-    printf("Handling request\n");
-    HttpRequest req = parse_http_request(sockfd);
-    printf("Received Request: %s %s %s %s %d\n", req.method, req.uri, req.httpVersion, req.host, req.port);
-
-    close(sockfd);  // Close the client socket
-    return NULL;    // Return from the thread
-}
 
